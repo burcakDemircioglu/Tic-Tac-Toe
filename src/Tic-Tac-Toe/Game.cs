@@ -4,12 +4,16 @@ namespace Tic_Tac_Toe
 {
     class Game
     {
-        private Square[][] _board =
-        {
-            new Square[3],
-            new Square[3],
-            new Square[3]
-        };
+        // array of arrays
+        // private Square[][] _board =
+        // {
+        //     new Square[3],
+        //     new Square[3],
+        //     new Square[3]
+        // };
+
+        //multidimensional array - always square!
+        private Square[,] _board = new Square[3, 3];
 
         public void PlayGame()
         {
@@ -31,7 +35,7 @@ namespace Tic_Tac_Toe
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
-                    Console.Write(" " + _board[i][j]);
+                    Console.Write(" " + _board[i, j]);
                 Console.WriteLine();
             }
         }
@@ -42,23 +46,23 @@ namespace Tic_Tac_Toe
             Console.Write($"{player}: Enter row comma column, eg. 3,3 > ");
             string input = Console.ReadLine();
             string[] parts = input.Split(',');
-            
+
             if (parts.Length != 2)
                 return false;
-            
+
             int.TryParse(parts[0], out int row);
             int.TryParse(parts[1], out int column);
 
             if (row < 1 || row > 3 || column < 1 || column > 3)
                 return false;
-            
-            if (_board[row - 1][column - 1].Owner != Player.Noone)
+
+            if (_board[row - 1, column - 1].Owner != Player.Noone)
             {
                 Console.WriteLine("Square is already occupied.");
                 return false;
             }
 
-            _board[row - 1][column - 1] = new Square(player);
+            _board[row - 1, column - 1] = new Square(player);
             return true;
         }
     }
